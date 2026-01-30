@@ -7,7 +7,7 @@
     <!-- 
         ========================================================================================
         KANAK SHREE MINERALS - PREMIUM INDUSTRIAL EXPORT PLATFORM
-        VERSION: 24.5.2 (Fixed Tile Sizing & Clean Animation)
+        VERSION: 24.5.11 (Static Card Hover & Clean Image Zoom Fix)
         ========================================================================================
     -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -347,11 +347,10 @@ max-width: 100%;
             flex-direction: column; height: 100%; cursor: pointer;
         }
         
-        /* HOVER FIX: Removed scale to prevent cluttering/jittering */
         .mineral-card-premium:hover {
-            transform: translateY(-8px);
+            transform: translateY(-12px) scale(1.02);
             border-color: var(--accent-gold-light);
-            box-shadow: 0 25px 60px -15px rgba(142, 110, 60, 0.2);
+            box-shadow: 0 40px 80px -20px rgba(142, 110, 60, 0.18);
         }
 
         /* DATA TABLES */
@@ -557,24 +556,31 @@ max-width: 100%;
             top: 100%;
             left: 50%;
             transform: translateX(-50%) translateY(10px);
-            width: 600px;
+            width: 500px;
             max-width: none; /* CRITICAL FIX: Overrides global max-width constraint */
             background: #0b0b0b;
             border: 1px solid rgba(255,255,255,0.1);
             border-top: 2px solid #af9655;
             border-radius: 12px;
             z-index: 10000;
-            padding: 32px;
+            padding: 16px; /* Reduced from 24px */
             box-shadow: 0 25px 60px rgba(0,0,0,0.8);
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), visibility 0.4s;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 32px;
+            gap: 16px; /* Reduced from 20px */
         }
 
-        .product-nav-container:hover .product-dropdown-menu {
+        /* Forced Close State for navigation logic */
+        .product-dropdown-menu.force-closed {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            transform: translateX(-50%) translateY(-15px) !important;
+        }
+
+        .product-nav-container:hover .product-dropdown-menu:not(.force-closed) {
             opacity: 1;
             visibility: visible;
             transform: translateX(-50%) translateY(0);
@@ -620,66 +626,113 @@ max-width: 100%;
         /* UTILITY FOR TEXT UNIFORMITY */
         .line-clamp-3 {
             display: -webkit-box;
-            /* -webkit-line-clamp: 3; */
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
 
-        /* ROBUST CAROUSEL CARD SIZING - FIXED WIDTHS AND RATIOS */
-        #productCarousel .carousel-card {
-            flex: 0 0 auto !important; /* Forces items not to grow or shrink */
-            width: 85vw; /* Default Mobile Width */
-            max-width: 85vw;
-            height: 100%; /* FORCE EQUAL HEIGHT */
-            display: flex;
-            flex-direction: column;
+        /* ABSOLUTE CONTENT-DRIVEN DIMENSIONS - NO FIXED HEIGHT */
+        .product-card-item {
+            flex: 0 0 auto !important;
+            width: 85vw !important; /* Mobile fallback */
+            max-width: 85vw !important;
+            height: auto !important; /* STRICTLY CONTENT-DRIVEN HEIGHT */
+            display: flex !important;
+            flex-direction: column !important;
+            background: #ffffff !important;
+            border: 1px solid #eef2f6 !important;
+            border-radius: 24px !important;
+            padding: 20px !important; /* COMPACT PADDING */
+            transition: border-color 0.4s ease !important; /* NO TRANSFORM OR LIFT ON CONTAINER */
+            cursor: pointer !important;
+            overflow: hidden !important;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            align-self: flex-start; /* DO NOT STRETCH VERTICALLY */
         }
 
-        /* STRICT CARD IMAGE RATIO ENFORCEMENT */
+        /* STABLE HOVER: COMPLETELY STATIC CONTAINER - ONLY BORDER HIGHLIGHT */
+        .product-card-item:hover {
+            border-color: var(--accent-gold-light) !important;
+            z-index: 10;
+            /* No lift, no movement, no shift */
+        }
+
+        /* RESPONSIVE WIDTHS - UPDATED FOR 32PX GAP */
+        @media (min-width: 640px) {
+            .product-card-item {
+                width: calc(50% - 16px) !important;
+                max-width: calc(50% - 16px) !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .product-card-item {
+                width: calc(33.333% - 21.33px) !important;
+                max-width: calc(33.333% - 21.33px) !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .product-card-item {
+                width: calc(25% - 24px) !important;
+                max-width: calc(25% - 24px) !important;
+            }
+        }
+
+        /* IMAGE AREA */
         .card-image-container {
-            width: 100%;
-            aspect-ratio: 3/2;
-            background-color: #f1f5f9;
+            width: 100% !important;
+            aspect-ratio: 3/2 !important;
+            height: auto !important;
+            background-color: #f8fafc;
             border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            border: 1px solid rgba(226, 232, 240, 0.5);
+            margin-bottom: 1.5rem !important; /* REFINED SPACING */
+            overflow: hidden; /* CRITICAL FOR CONTAINED ZOOM */
+            border: 1px solid rgba(226, 232, 240, 0.4);
             position: relative;
-            flex-shrink: 0; /* Prevents image from squishing */
+            flex-shrink: 0 !important;
         }
 
         .card-image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ANIMATION FIX: Image zoom only inside container */
-        .carousel-card:hover .card-image-container img {
-            transform: scale(1.08); /* Subtle zoom inside the frame */
+        /* CARD INNER CONTENT - TOP TO BOTTOM NATURAL STACK */
+        .product-card-item h4 {
+            margin-bottom: 0.8rem !important; /* SLIGHTLY INCREASED VERTICAL SPACING */
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: var(--primary-black);
+            line-height: 1.2;
+            flex-shrink: 0;
         }
 
-        /* RESPONSIVE BREAKPOINTS - PRECISE CALCULATIONS */
-        @media (min-width: 640px) {
-            #productCarousel .carousel-card {
-                width: calc(50% - 12px); /* 2 items with 24px gap */
-                max-width: calc(50% - 12px);
-            }
+        .product-card-item p {
+            font-size: 0.825rem;
+            line-height: 1.45;
+            margin-bottom: 1.5rem !important; /* SLIGHTLY INCREASED MARGIN DIRECTLY BELOW */
+            color: #64748b;
         }
 
-        @media (min-width: 768px) {
-            #productCarousel .carousel-card {
-                width: calc(33.333% - 16px); /* 3 items with 24px gap */
-                max-width: calc(33.333% - 16px);
-            }
+        /* CARD FOOTER - ALIGNED DIRECTLY BELOW DESCRIPTION */
+        .product-card-footer {
+            padding-top: 1rem;
+            border-top: 1px solid #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            flex-shrink: 0;
+            margin-top: 0; /* REMOVE AUTO MARGIN TO ENSURE COMPACTNESS */
         }
 
-        @media (min-width: 1024px) {
-            #productCarousel .carousel-card {
-                width: calc(25% - 18px); /* 4 items with 24px gap - EXACT for Laptop */
-                max-width: calc(25% - 18px);
-            }
+        /* ZOOM ON IMAGE ONLY - SUBTLE AND CONTAINED */
+        .product-card-item:hover .card-image-container img {
+            transform: scale(1.1);
         }
     </style>
 </head>
@@ -702,33 +755,27 @@ max-width: 100%;
                         <a href="javascript:void(0)" onclick="showPage('dedicated-about')" class="hover:text-[#af9655] transition-colors text-white h-full flex items-center">About Us</a>
                         
                         <!-- REFINED ELEGANT HOVER PRODUCT BAR -->
-                        <div class="product-nav-container">
+                        <div class="product-nav-container h-full">
                             <a href="javascript:void(0)" class="hover:text-[#af9655] transition-colors text-white flex items-center gap-2 cursor-pointer h-full font-semibold">
                                 Products <i class="fa-solid fa-chevron-down text-[8px] opacity-50"></i>
                             </a>
                             
-                            <!-- Horizontal Dropdown Menu -->
-                            <div class="product-dropdown-menu">
+                            <!-- Horizontal Compact Mega Dropdown Menu -->
+                            <div id="header-dropdown" class="product-dropdown-menu">
                                 <!-- Mica Grouping -->
                                 <div class="flex flex-col">
-                                    <p class="text-[#af9655] text-[9px] font-black uppercase tracking-[0.3em] mb-3 border-b border-white/10 pb-2">Mica Series</p>
-                                    <ul class="space-y-1">
+                                    <p class="text-[#af9655] text-[8px] font-black uppercase tracking-[0.4em] mb-2 border-b border-white/10 pb-1">Mica Series</p>
+                                    <ul class="space-y-0.5">
                                         <li>
-                                            <a href="javascript:void(0)" onclick="showPage('product-muscovite')" class="group/p flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
-                                                <div class="flex flex-col">
-                                                    <span class="text-[13px] font-semibold leading-none mb-1">Muscovite Mica</span>
-                                                    <span class="text-[9px] text-white/40">Thermal Resistance</span>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right text-[8px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
+                                            <a href="javascript:void(0)" onclick="closeDropdownAndScroll('product-muscovite')" class="group/p flex items-center justify-between p-1.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
+                                                <span class="text-[12px] font-semibold">Muscovite Mica</span>
+                                                <i class="fa-solid fa-chevron-right text-[7px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)" onclick="showPage('product-biotite')" class="group/p flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
-                                                <div class="flex flex-col">
-                                                    <span class="text-[13px] font-semibold leading-none mb-1">Biotite Mica</span>
-                                                    <span class="text-[9px] text-white/40">Shielding Grade</span>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right text-[8px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
+                                            <a href="javascript:void(0)" onclick="closeDropdownAndScroll('product-biotite')" class="group/p flex items-center justify-between p-1.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
+                                                <span class="text-[12px] font-semibold">Biotite Mica</span>
+                                                <i class="fa-solid fa-chevron-right text-[7px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
                                             </a>
                                         </li>
                                     </ul>
@@ -736,36 +783,42 @@ max-width: 100%;
 
                                 <!-- Feldspar Grouping -->
                                 <div class="flex flex-col">
-                                    <p class="text-[#af9655] text-[9px] font-black uppercase tracking-[0.3em] mb-3 border-b border-white/10 pb-2">Feldspar Series</p>
-                                    <ul class="space-y-1">
+                                    <p class="text-[#af9655] text-[8px] font-black uppercase tracking-[0.4em] mb-2 border-b border-white/10 pb-1">Feldspar Series</p>
+                                    <ul class="space-y-0.5">
                                         <li>
-                                            <a href="javascript:void(0)" onclick="showPage('product-potash')" class="group/p flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
-                                                <div class="flex flex-col">
-                                                    <span class="text-[13px] font-semibold leading-none mb-1">Potash Feldspar</span>
-                                                    <span class="text-[9px] text-white/40">High K2O Flux</span>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right text-[8px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
+                                            <a href="javascript:void(0)" onclick="closeDropdownAndScroll('product-potash')" class="group/p flex items-center justify-between p-1.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
+                                                <span class="text-[12px] font-semibold">Potash Feldspar</span>
+                                                <i class="fa-solid fa-chevron-right text-[7px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void(0)" onclick="showPage('product-soda')" class="group/p flex items-center justify-between p-2.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
-                                                <div class="flex flex-col">
-                                                    <span class="text-[13px] font-semibold leading-none mb-1">Soda Feldspar</span>
-                                                    <span class="text-[9px] text-white/40">High Na2O Grade</span>
-                                                </div>
-                                                <i class="fa-solid fa-chevron-right text-[8px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
+                                            <a href="javascript:void(0)" onclick="closeDropdownAndScroll('product-soda')" class="group/p flex items-center justify-between p-1.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
+                                                <span class="text-[12px] font-semibold">Soda Feldspar</span>
+                                                <i class="fa-solid fa-chevron-right text-[7px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="closeDropdownAndScroll('main-wrapper', 'products')" class="group/p flex items-center justify-between p-1.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
+                                                <span class="text-[12px] font-semibold">Feldspar Grains</span>
+                                                <i class="fa-solid fa-chevron-right text-[7px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)" onclick="closeDropdownAndScroll('main-wrapper', 'products')" class="group/p flex items-center justify-between p-1.5 rounded-lg hover:bg-white/5 transition-all text-white/80 hover:text-white">
+                                                <span class="text-[12px] font-semibold">Feldspar Powder</span>
+                                                <i class="fa-solid fa-chevron-right text-[7px] text-[#af9655] opacity-0 group-hover/p:opacity-100 transition-all"></i>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                                 
-                                <!-- Footer of Menu -->
-                                <div class="col-span-2 mt-2 pt-3 border-t border-white/10 flex items-center justify-between px-1">
+                                <!-- Compact Footer -->
+                                <div class="col-span-2 mt-1 pt-2 border-t border-white/10 flex items-center justify-between px-1">
                                     <div class="flex items-center gap-2">
-                                        <i class="fa-solid fa-certificate text-[#af9655] text-[10px]"></i>
-                                        <span class="text-[8px] text-white/40 uppercase font-black tracking-[0.2em]">ISO 9001:2015 Certified</span>
+                                        <i class="fa-solid fa-ship text-[#af9655] text-[9px]"></i>
+                                        <span class="text-[7px] text-white/30 uppercase font-black tracking-[0.2em]">Tier-1 Indian Exporter</span>
                                     </div>
-                                    <a href="javascript:void(0)" onclick="showPage('main-wrapper', 'products')" class="text-[9px] font-bold text-[#af9655] hover:text-white transition-colors">View All <i class="fa-solid fa-arrow-right ml-1"></i></a>
+                                    <a href="javascript:void(0)" onclick="closeDropdownAndScroll('main-wrapper', 'products')" class="text-[10px] font-bold text-[#af9655] hover:text-white transition-colors flex items-center gap-1">View All Portfolio <i class="fa-solid fa-arrow-right text-[8px]"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -1022,87 +1075,87 @@ max-width: 100%;
                     </button>
 
                     <!-- Scrollable Container -->
-                    <div id="productCarousel" class="flex overflow-x-auto gap-6 pb-12 snap-x snap-mandatory scroll-smooth hide-scrollbar items-stretch">
+                    <div id="productCarousel" class="flex overflow-x-auto gap-8 pb-12 snap-x snap-mandatory scroll-smooth hide-scrollbar items-start">
                         
                         <!-- Muscovite Mica Card -->
-                        <div class="mineral-card-premium carousel-card snap-center group" onclick="showPage('product-muscovite')">
+                        <div class="product-card-item snap-center group" onclick="showPage('product-muscovite')">
                             <div class="card-image-container">
                                 <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768573262/muscovite_mica_yv4oj5.jpg" alt="Muscovite Mica Product">
                             </div>
-                            <h4 class="font-black uppercase tracking-wider text-xl mb-3 text-slate-900">Muscovite Mica</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">Ultra-high thermal resistance with superior dielectric strength. Ideal for high-performance insulation and industrial applications requiring thermal stability.</p>
+                            <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Muscovite Mica</h4>
+                            <p class="text-slate-500 line-clamp-3">Ultra-high thermal resistance with superior dielectric strength. Ideal for high-performance insulation and industrial applications requiring thermal stability.</p>
                             
-                            <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div class="product-card-footer">
                                 <div class="text-[#af9655] text-[10px] font-black uppercase tracking-widest">Sourcing Specs</div>
                                 <i class="fa-solid fa-arrow-right-long text-[#af9655] group-hover:translate-x-3 transition-transform duration-500"></i>
                             </div>
                         </div>
 
                         <!-- Potash Feldspar Card -->
-                        <div class="mineral-card-premium carousel-card snap-center group" onclick="showPage('product-potash')">
+                        <div class="product-card-item snap-center group" onclick="showPage('product-potash')">
                             <div class="card-image-container">
                                 <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890958/Potash-Potassium-Feldspar_zzwrdz.jpg" alt="Potash Feldspar Product">
                             </div>
-                            <h4 class="font-black uppercase tracking-wider text-xl mb-3 text-slate-900">Potash Feldspar</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">Precision alkali ratio for high-end ceramics and vitrification. Acts as a key fluxing agent to lower melting points and ensure strength.</p>
+                            <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Potash Feldspar</h4>
+                            <p class="text-slate-500 line-clamp-3">Precision alkali ratio for high-end ceramics and vitrification. Acts as a key fluxing agent to lower melting points and ensure strength.</p>
                             
-                            <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div class="product-card-footer">
                                 <div class="text-[#af9655] text-[10px] font-black uppercase tracking-widest">Analysis Report</div>
                                 <i class="fa-solid fa-arrow-right-long text-[#af9655] group-hover:translate-x-3 transition-transform duration-500"></i>
                             </div>
                         </div>
 
                         <!-- Biotite Mica Card -->
-                        <div class="mineral-card-premium carousel-card snap-center group" onclick="showPage('product-biotite')">
+                        <div class="product-card-item snap-center group" onclick="showPage('product-biotite')">
                             <div class="card-image-container">
                                 <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890434/black-biotite-mica.jpg-rgq5dr0kcf0w4gvftf14wdyvv7z9whmjeforakkaq4_ceyfug.webp" alt="Biotite Mica Product">
                             </div>
-                            <h4 class="font-black uppercase tracking-wider text-xl mb-3 text-slate-900">Biotite Mica</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">Iron-rich structural shielding for specialized coatings. Provides excellent UV resistance and chemical stability for heavy-duty formulations.</p>
+                            <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Biotite Mica</h4>
+                            <p class="text-slate-500 line-clamp-3">Iron-rich structural shielding for specialized coatings. Provides excellent UV resistance and chemical stability for heavy-duty formulations.</p>
                             
-                            <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div class="product-card-footer">
                                 <div class="text-[#af9655] text-[10px] font-black uppercase tracking-widest">Technical Hub</div>
                                 <i class="fa-solid fa-arrow-right-long text-[#af9655] group-hover:translate-x-3 transition-transform duration-500"></i>
                             </div>
                         </div>
 
                         <!-- Soda Feldspar Card -->
-                        <div class="mineral-card-premium carousel-card snap-center group" onclick="showPage('product-soda')">
+                        <div class="product-card-item snap-center group" onclick="showPage('product-soda')">
                             <div class="card-image-container">
                                 <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890744/sodium-feldspar-lumps_pbqftj.png" alt="Soda Feldspar Product">
                             </div>
-                            <h4 class="font-black uppercase tracking-wider text-xl mb-3 text-slate-900">Soda Feldspar</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">Optimized sodium-aluminum silicate for glass manufacturing. Essential for achieving high-gloss finishes and durability in glassware.</p>
+                            <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Soda Feldspar</h4>
+                            <p class="text-slate-500 line-clamp-3">Optimized sodium-aluminum silicate for glass manufacturing. Essential for achieving high-gloss finishes and durability in glassware.</p>
                             
-                            <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div class="product-card-footer">
                                 <div class="text-[#af9655] text-[10px] font-black uppercase tracking-widest">Technical Data</div>
                                 <i class="fa-solid fa-arrow-right-long text-[#af9655] group-hover:translate-x-3 transition-transform duration-500"></i>
                             </div>
                         </div>
 
                         <!-- NEW PRODUCT: Feldspar Grains -->
-                        <div class="mineral-card-premium carousel-card snap-center group" onclick="showPage('product-potash')">
+                        <div class="product-card-item snap-center group" onclick="showPage('product-potash')">
                             <div class="card-image-container">
                                 <img src="https://images.unsplash.com/photo-1595856715697-7c70c67cb7c3?auto=format&fit=crop&w=800&q=80" alt="Feldspar Grain">
                             </div>
-                            <h4 class="font-black uppercase tracking-wider text-xl mb-3 text-slate-900">Feldspar Grains</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">Processed uniform grains for high-quality abrasive and glass batches. Ensuring consistent particle size distribution for industrial efficiency.</p>
+                            <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Feldspar Grains</h4>
+                            <p class="text-slate-500 line-clamp-3">Processed uniform grains for high-quality abrasive and glass batches. Ensuring consistent particle size distribution for industrial efficiency.</p>
                             
-                            <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div class="product-card-footer">
                                 <div class="text-[#af9655] text-[10px] font-black uppercase tracking-widest">Grain Analysis</div>
                                 <i class="fa-solid fa-arrow-right-long text-[#af9655] group-hover:translate-x-3 transition-transform duration-500"></i>
                             </div>
                         </div>
 
                         <!-- NEW PRODUCT: Feldspar Powder -->
-                        <div class="mineral-card-premium carousel-card snap-center group" onclick="showPage('product-soda')">
+                        <div class="product-card-item snap-center group" onclick="showPage('product-soda')">
                             <div class="card-image-container">
                                 <img src="https://images.unsplash.com/photo-1621262973719-72535099397c?auto=format&fit=crop&w=800&q=80" alt="Feldspar Powder">
                             </div>
-                            <h4 class="font-black uppercase tracking-wider text-xl mb-3 text-slate-900">Feldspar Powder</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3">Micronized high-purity powder for advanced ceramic glazing. Delivering smooth textures and consistent firing results for fine ceramics.</p>
+                            <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Feldspar Powder</h4>
+                            <p class="text-slate-500 line-clamp-3">Micronized high-purity powder for advanced ceramic glazing. Delivering smooth textures and consistent firing results for fine ceramics.</p>
                             
-                            <div class="mt-auto flex items-center justify-between pt-6 border-t border-slate-100">
+                            <div class="product-card-footer">
                                 <div class="text-[#af9655] text-[10px] font-black uppercase tracking-widest">Mesh Details</div>
                                 <i class="fa-solid fa-arrow-right-long text-[#af9655] group-hover:translate-x-3 transition-transform duration-500"></i>
                             </div>
@@ -1929,6 +1982,25 @@ max-width: 100%;
             setTimeout(() => {
                 window.dispatchEvent(new Event('scroll'));
             }, 100);
+        }
+
+        /**
+         * Mega Menu Controller: Closes dropdown and scrolls to target
+         */
+        function closeDropdownAndScroll(pageId, targetId = null) {
+            const dropdown = document.getElementById('header-dropdown');
+            if (dropdown) {
+                dropdown.classList.add('force-closed');
+                setTimeout(() => {
+                    dropdown.classList.remove('force-closed');
+                }, 1000);
+            }
+            
+            if (pageId.includes('product-')) {
+                showPage(pageId);
+            } else {
+                showPage(pageId, targetId);
+            }
         }
 
         function closeMobileMenu() {
