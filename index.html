@@ -7,7 +7,7 @@
     <!-- 
         ========================================================================================
         KANAK SHREE MINERALS - PREMIUM INDUSTRIAL EXPORT PLATFORM
-        VERSION: 24.5.11 (Static Card Hover & Clean Image Zoom Fix)
+        VERSION: 24.5.20 (Seal-of-Trust Certification Update & Mobile UX Integrity)
         ========================================================================================
     -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -123,27 +123,21 @@ max-width: 100%;
             opacity: 0;
         }
 
-        /* CERTIFICATION BADGE - COMPACT MEDALLION */
-        .trust-badge-compact {
-            background: #1c1c1c;
-            border: 1.5px solid #c8a24d;
-            border-radius: 2rem;
+        /* CERTIFICATION BADGE - MINIMALIST SEALS */
+        .trust-seal-minimal {
             position: relative;
-            padding: 35px 20px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
             width: 100%;
         }
 
-        .trust-badge-compact:hover {
-            transform: translateY(-8px);
-            border-color: #f5f5f5;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(200, 162, 77, 0.1);
+        .trust-seal-minimal:hover {
+            transform: translateY(-5px);
         }
 
         /* DIVIDER ANIMATION */
@@ -506,7 +500,7 @@ max-width: 100%;
         }
 
         @media (max-width: 1024px) {
-            .contact-enquiry-card { grid-template-columns: 1fr; }
+            .contact-enquiry-card { grid-template-columns: 1fr; border-radius: 32px; }
             .contact-info-panel { border-right: none; border-bottom: 1px solid #f1f5f9; padding: 40px; }
             .contact-form-panel { padding: 40px; }
         }
@@ -525,6 +519,19 @@ max-width: 100%;
             .metrics-ribbon .max-w-7xl { flex-wrap: wrap; justify-content: center; gap: 40px 0; }
             .metric-item { border-right: none; width: 50%; justify-content: center; padding: 0 10px; }
             .metric-item:nth-child(even) { border-left: 1px solid #f1f5f9; } 
+            
+            /* ENHANCED INQUIRY PORTAL MOBILE FIX - PRIORITY */
+            .contact-info-panel { padding: 30px 24px !important; border-bottom: 1px solid #f1f5f9; }
+            .contact-form-panel { padding: 40px 24px !important; }
+            .contact-form-grid { gap: 16px !important; }
+            .contact-form-grid input, .contact-form-grid select, .contact-form-grid textarea { 
+                padding: 16px !important; 
+                font-size: 15px !important; 
+                border-radius: 14px !important;
+                height: auto !important;
+            }
+            .contact-form-grid select { height: 56px !important; }
+            .btn-gold { padding-top: 18px !important; padding-bottom: 18px !important; font-size: 13px !important; }
         }
 
         /* REFINED ELEGANT PRODUCT BAR STYLING - COMPACT & VERTICAL */
@@ -634,28 +641,28 @@ max-width: 100%;
         /* ABSOLUTE CONTENT-DRIVEN DIMENSIONS - NO FIXED HEIGHT */
         .product-card-item {
             flex: 0 0 auto !important;
-            width: 85vw !important; /* Mobile fallback */
+            width: 82vw !important; /* Mobile peek optimization */
             max-width: 85vw !important;
             height: auto !important; /* STRICTLY CONTENT-DRIVEN HEIGHT */
             display: flex !important;
             flex-direction: column !important;
             background: #ffffff !important;
             border: 1px solid #eef2f6 !important;
-            border-radius: 24px !important;
-            padding: 20px !important; /* COMPACT PADDING */
-            transition: border-color 0.4s ease !important; /* NO TRANSFORM OR LIFT ON CONTAINER */
+            border-radius: 28px !important;
+            padding: 24px !important; 
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
             cursor: pointer !important;
             overflow: hidden !important;
             position: relative;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
             align-self: flex-start; /* DO NOT STRETCH VERTICALLY */
         }
 
         /* STABLE HOVER: COMPLETELY STATIC CONTAINER - ONLY BORDER HIGHLIGHT */
         .product-card-item:hover {
             border-color: var(--accent-gold-light) !important;
+            box-shadow: 0 20px 50px -15px rgba(142, 110, 60, 0.12) !important;
             z-index: 10;
-            /* No lift, no movement, no shift */
         }
 
         /* RESPONSIVE WIDTHS - UPDATED FOR 32PX GAP */
@@ -680,59 +687,91 @@ max-width: 100%;
             }
         }
 
-        /* IMAGE AREA */
+        /* IMAGE AREA - FIXED MOBILE SIZING */
         .card-image-container {
             width: 100% !important;
-            aspect-ratio: 3/2 !important;
+            aspect-ratio: 4/3 !important;
             height: auto !important;
             background-color: #f8fafc;
-            border-radius: 1rem;
-            margin-bottom: 1.5rem !important; /* REFINED SPACING */
+            border-radius: 1.25rem;
+            margin-bottom: 1.75rem !important; 
             overflow: hidden; /* CRITICAL FOR CONTAINED ZOOM */
-            border: 1px solid rgba(226, 232, 240, 0.4);
+            border: 1px solid rgba(226, 232, 240, 0.5);
             position: relative;
             flex-shrink: 0 !important;
         }
 
         .card-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important; /* Ensures image fills container correctly */
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+            display: block;
         }
 
         /* CARD INNER CONTENT - TOP TO BOTTOM NATURAL STACK */
         .product-card-item h4 {
-            margin-bottom: 0.8rem !important; /* SLIGHTLY INCREASED VERTICAL SPACING */
-            font-size: 1.05rem;
+            margin-bottom: 0.8rem !important;
+            font-size: 1.15rem;
             font-weight: 800;
             color: var(--primary-black);
             line-height: 1.2;
             flex-shrink: 0;
+            letter-spacing: -0.01em;
         }
 
         .product-card-item p {
-            font-size: 0.825rem;
-            line-height: 1.45;
-            margin-bottom: 1.5rem !important; /* SLIGHTLY INCREASED MARGIN DIRECTLY BELOW */
+            font-size: 0.875rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem !important; 
             color: #64748b;
         }
 
         /* CARD FOOTER - ALIGNED DIRECTLY BELOW DESCRIPTION */
         .product-card-footer {
-            padding-top: 1rem;
-            border-top: 1px solid #f8fafc;
+            padding-top: 1.25rem;
+            border-top: 1px solid #f1f5f9;
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
             flex-shrink: 0;
-            margin-top: 0; /* REMOVE AUTO MARGIN TO ENSURE COMPACTNESS */
+            margin-top: auto; /* Push to bottom of card content */
         }
 
         /* ZOOM ON IMAGE ONLY - SUBTLE AND CONTAINED */
         .product-card-item:hover .card-image-container img {
-            transform: scale(1.1);
+            transform: scale(1.15);
+        }
+
+        @media (max-width: 640px) {
+            .product-card-item { padding: 20px !important; border-radius: 24px !important; }
+            .product-card-item h4 { font-size: 1.1rem; }
+            .product-card-item p { font-size: 0.85rem; line-clamp: 2; }
+            #productCarousel { padding-left: 20px; padding-right: 20px; gap: 16px; scroll-padding-left: 20px; }
+            
+            /* CRITICAL FIX: ENSURE PRODUCT IMAGES ARE PERFECT SQUARES IN MOBILE - PRIORITY */
+            .card-image-container { 
+                width: 100% !important;
+                height: auto !important;
+                margin-bottom: 1.25rem !important; 
+                aspect-ratio: 1 / 1 !important; /* Forces 1:1 square shape on mobile */
+                display: block !important;
+            }
+
+            /* ARROW NAVIGATION VISIBILITY FIX FOR MOBILE */
+            #slideLeft, #slideRight {
+                opacity: 1 !important;
+                visibility: visible !important;
+                width: 36px !important;
+                height: 36px !important;
+                background: rgba(255, 255, 255, 0.9) !important;
+                border: 1px solid #eef2f6 !important;
+                font-size: 12px !important;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+            }
+            #slideLeft { left: 8px !important; transform: translateY(-50%) !important; }
+            #slideRight { right: 8px !important; transform: translateY(-50%) !important; }
         }
     </style>
 </head>
@@ -1136,7 +1175,7 @@ max-width: 100%;
                         <!-- NEW PRODUCT: Feldspar Grains -->
                         <div class="product-card-item snap-center group" onclick="showPage('product-potash')">
                             <div class="card-image-container">
-                                <img src="https://images.unsplash.com/photo-1595856715697-7c70c67cb7c3?auto=format&fit=crop&w=800&q=80" alt="Feldspar Grain">
+                                <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1770011367/potash-feldspar-grains-500x500_itl55p.webp" alt="Feldspar Grain">
                             </div>
                             <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Feldspar Grains</h4>
                             <p class="text-slate-500 line-clamp-3">Processed uniform grains for high-quality abrasive and glass batches. Ensuring consistent particle size distribution for industrial efficiency.</p>
@@ -1150,7 +1189,7 @@ max-width: 100%;
                         <!-- NEW PRODUCT: Feldspar Powder -->
                         <div class="product-card-item snap-center group" onclick="showPage('product-soda')">
                             <div class="card-image-container">
-                                <img src="https://images.unsplash.com/photo-1621262973719-72535099397c?auto=format&fit=crop&w=800&q=80" alt="Feldspar Powder">
+                                <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1770011119/images_7_majgug.jpg" alt="Feldspar Powder">
                             </div>
                             <h4 class="font-black uppercase tracking-wider text-xl text-slate-900">Feldspar Powder</h4>
                             <p class="text-slate-500 line-clamp-3">Micronized high-purity powder for advanced ceramic glazing. Delivering smooth textures and consistent firing results for fine ceramics.</p>
@@ -1171,87 +1210,100 @@ max-width: 100%;
             </div>
         </section>
 
-        <!-- COMPACT PROFESSIONAL CERTIFICATION SECTION -->
-        <section id="certifications-premium" class="bg-[#0f0f0f] text-[#f5f5f5] reveal relative">
+        <!-- PROFESSIONAL CERTIFICATION SEALS - HIGH-QUALITY GLOBAL TRUST ENHANCEMENT -->
+        <section id="certifications-premium" class="bg-[#0f0f0f] text-[#f5f5f5] reveal relative overflow-hidden">
             <div class="trust-divider"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-                <div class="text-center mb-16">
-                    <h2 class="heading-font text-2xl sm:text-4xl tracking-tighter uppercase leading-tight mb-4">Internationally Certified. <span class="text-[#c8a24d]">Export Ready.</span> Trusted by Global Industries.</h2>
-                    <p class="text-slate-500 text-xs sm:text-sm max-w-2xl mx-auto font-light leading-relaxed">Our processes meet strict international standards to ensure consistent quality, regulatory compliance, and reliable global supply.</p>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+                <div class="text-center mb-20">
+                    <h2 class="heading-font text-3xl sm:text-5xl tracking-tighter uppercase leading-tight mb-6">Internationally Certified. <span class="text-[#c8a24d]">Export Ready.</span></h2>
+                    <div class="h-1 w-20 bg-[#c8a24d] mx-auto mb-8 rounded-full"></div>
+                    <p class="text-slate-400 text-sm sm:text-base max-w-3xl mx-auto font-light leading-relaxed">Kanak Shree Minerals adheres to rigorous global compliance standards, ensuring technical consistency and regulatory reliability for our international trade partners.</p>
                 </div>
-                <div class="grid grid-cols-2 lg:grid-cols-6 gap-6 md:gap-8">
-                    <!-- ISO 9001 - Enhanced Professional Seal -->
-                    <div class="trust-badge-compact group reveal reveal-delay-1">
-                        <div class="w-16 h-16 flex items-center justify-center mb-4 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
-                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
-                                <path d="M50 2 L54.5 15.5 L68.5 10.5 L69.5 25 L84 25 L80 39 L92.5 45.5 L84.5 57 L92.5 68.5 L80 75 L84 89 L69.5 89 L68.5 103.5 L54.5 98.5 L50 112 L45.5 98.5 L31.5 103.5 L30.5 89 L16 89 L20 75 L7.5 68.5 L15.5 57 L7.5 45.5 L20 39 L16 25 L30.5 25 L31.5 10.5 L45.5 15.5 Z" transform="scale(0.85) translate(8,8)" opacity="0.2"/>
-                                <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="50" cy="50" r="36" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2"/>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12 md:gap-8 lg:gap-4 items-start">
+                    <!-- ISO 9001 Seal - High Detail -->
+                    <div class="trust-seal-minimal group reveal reveal-delay-1">
+                        <div class="w-20 h-20 flex items-center justify-center mb-6 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current drop-shadow-[0_0_15px_rgba(200,162,77,0.2)]">
+                                <circle cx="50" cy="50" r="48" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="1,2" opacity="0.4"/>
+                                <path d="M50 5 L55 20 L70 20 L60 30 L65 45 L50 35 L35 45 L40 30 L30 20 L45 20 Z" opacity="0.2"/>
+                                <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="2.5"/>
                                 <path d="M35 52 L45 62 L65 38" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-                                <path d="M25 50 A25 25 0 0 1 75 50" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
                             </svg>
                         </div>
-                        <h4 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#f5f5f5]">ISO 9001</h4>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white">ISO 9001:2015</h4>
+                        <p class="text-[8px] text-slate-500 mt-2 uppercase tracking-widest font-bold">Quality Standard</p>
                     </div>
-                    <!-- Export Status - Global Logistics Seal -->
-                    <div class="trust-badge-compact group reveal reveal-delay-2">
-                        <div class="w-16 h-16 flex items-center justify-center mb-4 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
-                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
-                                <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M20 50 Q50 20 80 50 Q50 80 20 50" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M50 10 V90 M10 50 H90" fill="none" stroke="currentColor" stroke-width="1" opacity="0.3"/>
-                                <path d="M30 35 L70 35 L70 65 L30 65 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M30 45 H70 M30 55 H70 M50 35 V65" fill="none" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+
+                    <!-- REACH Compliance Seal - High Detail -->
+                    <div class="trust-seal-minimal group reveal reveal-delay-2">
+                        <div class="w-20 h-20 flex items-center justify-center mb-6 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current drop-shadow-[0_0_15px_rgba(200,162,77,0.2)]">
+                                <path d="M50 5 L85 20 V50 C85 75 50 95 50 95 C50 95 15 75 15 50 V20 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="50" cy="45" r="15" fill="none" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                                <text x="50" y="58" font-size="14" font-weight="900" text-anchor="middle" fill="currentColor" style="font-family: sans-serif; letter-spacing: 1px;">REACH</text>
+                                <path d="M30 45 Q50 35 70 45" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.5"/>
                             </svg>
                         </div>
-                        <h4 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#f5f5f5]">Export Status</h4>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white">REACH Compliant</h4>
+                        <p class="text-[8px] text-slate-500 mt-2 uppercase tracking-widest font-bold">EU Regulation</p>
                     </div>
-                    <!-- Lab Audit - Technical Verification Seal -->
-                    <div class="trust-badge-compact group reveal reveal-delay-3">
-                        <div class="w-16 h-16 flex items-center justify-center mb-4 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
-                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
-                                <rect x="25" y="15" width="50" height="70" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M35 30 H65 M35 45 H65 M35 60 H50" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
-                                <circle cx="70" cy="75" r="18" fill="#1c1c1c" stroke="currentColor" stroke-width="2"/>
+
+                    <!-- CAPEXIL Member Seal - High Detail -->
+                    <div class="trust-seal-minimal group reveal reveal-delay-3">
+                        <div class="w-20 h-20 flex items-center justify-center mb-6 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current drop-shadow-[0_0_15px_rgba(200,162,77,0.2)]">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                                <path d="M20 50 Q50 15 80 50 Q50 85 20 50 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M50 10 V90 M10 50 H90" fill="none" stroke="currentColor" stroke-width="1" opacity="0.4"/>
+                                <rect x="42" y="42" width="16" height="16" fill="currentColor" opacity="0.2"/>
+                                <circle cx="50" cy="50" r="5" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white">CAPEXIL Member</h4>
+                        <p class="text-[8px] text-slate-500 mt-2 uppercase tracking-widest font-bold">Export Recognition</p>
+                    </div>
+
+                    <!-- DGFT Certified Seal - High Detail -->
+                    <div class="trust-seal-minimal group reveal reveal-delay-4">
+                        <div class="w-20 h-20 flex items-center justify-center mb-6 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current drop-shadow-[0_0_15px_rgba(200,162,77,0.2)]">
+                                <rect x="20" y="10" width="60" height="80" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                                <path d="M35 30 H65 M35 45 H65 M35 60 H50" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.4"/>
+                                <circle cx="70" cy="75" r="18" fill="#0f0f0f" stroke="currentColor" stroke-width="2"/>
                                 <path d="M62 75 L68 81 L78 69" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                         </div>
-                        <h4 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#f5f5f5]">Lab Audit</h4>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white">DGFT Verified</h4>
+                        <p class="text-[8px] text-slate-500 mt-2 uppercase tracking-widest font-bold">Export Authority</p>
                     </div>
-                    <!-- Eco-Mining - Restoration Seal -->
-                    <div class="trust-badge-compact group reveal reveal-delay-4">
-                        <div class="w-16 h-16 flex items-center justify-center mb-4 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
-                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
-                                <path d="M50 10 L85 30 V70 L50 90 L15 70 V30 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M50 30 C50 30 75 45 75 65 C75 75 65 85 50 85 C35 85 25 75 25 65 C25 45 50 30 50 30" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M50 85 V45" fill="none" stroke="currentColor" stroke-width="1.5"/>
-                                <path d="M50 65 L65 55 M50 75 L35 65" fill="none" stroke="currentColor" stroke-width="1.5"/>
+
+                    <!-- TDS/MSDS Standards Seal - High Detail -->
+                    <div class="trust-seal-minimal group reveal reveal-delay-5">
+                        <div class="w-20 h-20 flex items-center justify-center mb-6 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current drop-shadow-[0_0_15px_rgba(200,162,77,0.2)]">
+                                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+                                <path d="M30 20 L70 20 L80 30 L80 80 L30 80 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                                <path d="M70 20 V30 H80" fill="none" stroke="currentColor" stroke-width="2"/>
+                                <path d="M45 40 L55 50 M55 40 L45 50" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                                <rect x="40" y="60" width="20" height="2" fill="currentColor"/>
                             </svg>
                         </div>
-                        <h4 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#f5f5f5]">Eco-Mining</h4>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white">Technical Data</h4>
+                        <p class="text-[8px] text-slate-500 mt-2 uppercase tracking-widest font-bold">TDS/MSDS Safety</p>
                     </div>
-                    <!-- Secure Transit - Integrity Seal -->
-                    <div class="trust-badge-compact group reveal reveal-delay-5">
-                        <div class="w-16 h-16 flex items-center justify-center mb-4 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
-                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
-                                <path d="M50 5 L85 20 V50 C85 70 50 90 50 90 C50 90 15 70 15 50 V20 Z" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <rect x="38" y="45" width="24" height="18" rx="1" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <path d="M43 45 V38 C43 33 46 30 50 30 C54 30 57 33 57 38 V45" fill="none" stroke="currentColor" stroke-width="2"/>
-                                <circle cx="50" cy="54" r="2" fill="currentColor"/>
+
+                    <!-- Secure Transit Seal - High Detail -->
+                    <div class="trust-seal-minimal group reveal reveal-delay-6">
+                        <div class="w-20 h-20 flex items-center justify-center mb-6 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
+                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current drop-shadow-[0_0_15px_rgba(200,162,77,0.2)]">
+                                <path d="M10 85 H90 L85 45 L50 25 L15 45 Z" fill="none" stroke="currentColor" stroke-width="2.5"/>
+                                <path d="M15 45 H85 M30 85 V45 M50 85 V45 M70 85 V45" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
+                                <circle cx="50" cy="40" r="6" fill="currentColor" opacity="0.3"/>
                             </svg>
                         </div>
-                        <h4 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#f5f5f5]">Secure Transit</h4>
-                    </div>
-                    <!-- Global Cap - Capacity Seal -->
-                    <div class="trust-badge-compact group reveal reveal-delay-6">
-                        <div class="w-16 h-16 flex items-center justify-center mb-4 text-[#c8a24d] group-hover:scale-110 transition-transform duration-500">
-                            <svg viewBox="0 0 100 100" class="w-full h-full fill-current">
-                                <path d="M10 85 H90 M20 85 V40 L40 25 V40 L60 25 V40 L80 25 V85" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
-                                <path d="M30 55 H40 M50 55 H60 M70 55 H80 M30 70 H40 M50 70 H60 M70 70 H80" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"/>
-                                <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="4,4" opacity="0.2"/>
-                            </svg>
-                        </div>
-                        <h4 class="text-[11px] font-black uppercase tracking-[0.2em] text-[#f5f5f5]">Global Cap</h4>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white">Global Transit</h4>
+                        <p class="text-[8px] text-slate-500 mt-2 uppercase tracking-widest font-bold">Secure Logistics</p>
                     </div>
                 </div>
             </div>
@@ -1448,24 +1500,24 @@ max-width: 100%;
         </section>
     </div>
 
-    <!-- DEDICATED ABOUT PAGE VIEW -->
-    <div id="dedicated-about" class="page-wrapper page-hidden min-h-screen bg-[#fcfcfc] pt-24">
+    <!-- DEDICATED ABOUT PAGE VIEW - FIXED: BG OVERLAY TO ELIMINATE NAV LINE -->
+    <div id="dedicated-about" class="page-wrapper page-hidden min-h-screen bg-[#0a0a0a] pt-20 md:pt-24">
         <!-- Heritage & Expertise Hero -->
         <section class="py-16 sm:py-32 bg-[#0a0a0a] text-white relative overflow-hidden border-b border-white/5">
             <div class="absolute inset-0 opacity-40 pointer-events-none">
-                <img src="https://images.unsplash.com/photo-1574362848149-11496d93a7c7?auto=format&fit=crop&w=1920&q=80" alt="High-Purity Mining" class="w-full h-full object-cover">
+                <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1770009437/3d9c84f7-f4b3-4bc4-947d-13b3d4ca8ce2_wjaqxu.png" alt="High-Purity Mining" class="w-full h-full object-cover">
             </div>
             <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/50"></div>
             <div class="absolute inset-0 bg-[radial-gradient(circle,transparent_30%,rgba(0,0,0,0.5)_100%)]"></div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
                 <button onclick="showPage('main-wrapper')" class="mb-10 inline-flex items-center gap-4 text-[#af9655] font-black text-[10px] uppercase tracking-[0.4em] hover:text-white transition-all group reveal">
-                    <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-2 transition-transform"></i> Return to portal
+                    <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-2 transition-transform"></i> RETURN TO PORTAL
                 </button>
                 <div class="mb-6 flex justify-center reveal">
                     <div class="h-1.5 w-24 bg-[#af9655] rounded-full"></div>
                 </div>
-                <h1 class="heading-font text-5xl sm:text-8xl mb-8 tracking-tighter leading-[0.95] text-white reveal">Precision That Powers<br><span class="text-[#af9655]"> Global Industries.</span></h1>
+                <h1 class="heading-font text-5xl sm:text-8xl mb-8 tracking-tighter leading-[0.95] text-white reveal">Consistent Quality.<br><span class="text-[#af9655]"> Trusted Global Partnerships.</span></h1>
                 <p class="max-w-3xl mx-auto text-white/70 text-lg sm:text-xl font-light leading-relaxed mb-12 reveal">
                     Kanak Shree Minerals brings Rajasthan’s geological strength to international markets through advanced processing and uncompromising quality standards.
                 </p>
@@ -1627,11 +1679,11 @@ max-width: 100%;
         <footer class="py-8 bg-white border-t border-slate-100 text-center reveal"><button onclick="showPage('main-wrapper')" class="btn-gold px-14 py-6 shadow-3xl tracking-widest font-bold">Return to Home Portal</button></footer>
     </div>
 
-    <!-- PRODUCT VIEW: MUSCOVITE MICA -->
-    <div id="product-muscovite" class="page-wrapper page-hidden min-h-screen bg-white pt-24 reveal">
-        <section class="py-16 bg-slate-50 border-b border-slate-100 overflow-hidden">
+    <!-- PRODUCT VIEW: MUSCOVITE MICA - FIXED: RESPONSIVE PT & BG SYNC -->
+    <div id="product-muscovite" class="page-wrapper page-hidden min-h-screen bg-[#f8fafc] pt-20 md:pt-24 reveal">
+        <section class="py-16 bg-[#f8fafc] border-b border-slate-100 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <button onclick="showPage('main-wrapper')" class="mb-10 inline-flex items-center gap-4 text-[#af9655] font-bold text-[11px] tracking-[0.2em] hover:text-slate-900 transition-colors"><i class="fa-solid fa-arrow-left-long"></i> Back to portal</button>
+                <button onclick="showPage('main-wrapper')" class="mb-10 inline-flex items-center gap-4 text-[#af9655] font-bold text-[11px] tracking-[0.2em] hover:text-slate-900 transition-colors"><i class="fa-solid fa-arrow-left-long"></i> BACK TO PORTAL</button>
                 <div class="flex flex-col lg:flex-row gap-16 items-center">
                     <div class="lg:w-1/2">
                         <h1 class="heading-font text-4xl sm:text-6xl text-slate-900 mb-4 tracking-tighter leading-tight">High-Quality Muscovite Mica.</h1>
@@ -1642,7 +1694,7 @@ max-width: 100%;
                     </div>
                     <div class="lg:w-1/2 relative group">
                         <div class="absolute -inset-4 bg-[#af9655]/10 rounded-3xl blur-2xl"></div>
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768573262/muscovite_mica_yv4oj5.jpg" alt="Muscovite Mica" class="relative rounded-[48px] shadow-3xl border-8 border-white object-cover h-[500px] sm:h-[500px] w-full">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768573262/muscovite_mica_yv4oj5.jpg" alt="Muscovite Mica" class="relative rounded-[32px] md:rounded-[48px] shadow-3xl border-4 md:border-8 border-white object-cover aspect-square md:aspect-auto md:h-[500px] w-full">
                     </div>
                 </div>
             </div>
@@ -1691,9 +1743,9 @@ max-width: 100%;
         </section>
     </div>
 
-    <!-- PRODUCT VIEW: BIOTITE MICA -->
-    <div id="product-biotite" class="page-wrapper page-hidden min-h-screen bg-white pt-24 reveal">
-        <section class="py-16 bg-slate-50 border-b border-slate-100 overflow-hidden">
+    <!-- PRODUCT VIEW: BIOTITE MICA - FIXED: RESPONSIVE PT & BG SYNC -->
+    <div id="product-biotite" class="page-wrapper page-hidden min-h-screen bg-[#f8fafc] pt-20 md:pt-24 reveal">
+        <section class="py-16 bg-[#f8fafc] border-b border-slate-100 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button onclick="showPage('main-wrapper')" class="mb-10 inline-flex items-center gap-4 text-[#af9655] font-bold text-[11px] tracking-[0.2em] hover:text-slate-900 transition-colors"><i class="fa-solid fa-arrow-left-long"></i> Back to Portal</button>
                 <div class="flex flex-col lg:flex-row gap-16 items-center">
@@ -1706,7 +1758,7 @@ max-width: 100%;
                     </div>
                     <div class="lg:w-1/2 relative group">
                         <div class="absolute -inset-4 bg-[#af9655]/10 rounded-3xl blur-2xl"></div>
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890434/black-biotite-mica.jpg-rgq5dr0kcf0w4gvftf14wdyvv7z9whmjeforakkaq4_ceyfug.webp" alt="Biotite Mica" class="relative rounded-[48px] shadow-3xl border-8 border-white object-cover h-[500px] sm:h-[500px] w-full">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890434/black-biotite-mica.jpg-rgq5dr0kcf0w4gvftf14wdyvv7z9whmjeforakkaq4_ceyfug.webp" alt="Biotite Mica" class="relative rounded-[32px] md:rounded-[48px] shadow-3xl border-4 md:border-8 border-white object-cover aspect-square md:aspect-auto md:h-[500px] w-full">
                     </div>
                 </div>
             </div>
@@ -1725,7 +1777,7 @@ max-width: 100%;
                         <div class="app-overlay-content"><h4>UV Coatings</h4><p>Providing iron-oxide pigmentation for extreme UV resistance in industrial exterior finishes.</p></div>
                     </div>
                     <div class="app-card-premium reveal reveal-delay-3 group">
-                        <div class="app-card-img-wrapper"><img src="https://images.unsplash.com/photo-1516198628383-ef723d386414?auto=format&fit=crop&w=800&q=80" alt="Drilling Additives"></div>
+                        <div class="app-card-img-wrapper"><img src="https://images.unsplash.com/photo-1516198628383-ef723d386414?auto=format&fit=crop&w=800&q=80" alt="Oil & Gas"></div>
                         <div class="app-overlay-content"><h4>Oil & Gas</h4><p>High-purity additive for drilling fluids to prevent fluid loss in high-pressure wells.</p></div>
                     </div>
                     <div class="app-card-premium reveal reveal-delay-4 group">
@@ -1755,9 +1807,9 @@ max-width: 100%;
         </section>
     </div>
 
-    <!-- PRODUCT VIEW: POTASH FELDSPAR -->
-    <div id="product-potash" class="page-wrapper page-hidden min-h-screen bg-white pt-24 reveal">
-        <section class="py-16 bg-slate-50 border-b border-slate-100 overflow-hidden">
+    <!-- PRODUCT VIEW: POTASH FELDSPAR - FIXED: RESPONSIVE PT & BG SYNC -->
+    <div id="product-potash" class="page-wrapper page-hidden min-h-screen bg-[#f8fafc] pt-20 md:pt-24 reveal">
+        <section class="py-16 bg-[#f8fafc] border-b border-slate-100 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button onclick="showPage('main-wrapper')" class="mb-10 inline-flex items-center gap-4 text-[#af9655] font-bold text-[11px] tracking-[0.2em] hover:text-slate-900 transition-colors"><i class="fa-solid fa-arrow-left-long"></i> Back to portal</button>
                 <div class="flex flex-col lg:flex-row gap-16 items-center">
@@ -1770,7 +1822,7 @@ max-width: 100%;
                     </div>
                     <div class="lg:w-1/2 relative group">
                         <div class="absolute -inset-4 bg-[#af9655]/10 rounded-3xl blur-2xl"></div>
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890958/Potash-Potassium-Feldspar_zzwrdz.jpg" alt="Potash Feldspar" class="relative rounded-[48px] shadow-3xl border-8 border-white object-cover h-[500px] sm:h-[500px] w-full">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890958/Potash-Potassium-Feldspar_zzwrdz.jpg" alt="Potash Feldspar" class="relative rounded-[32px] md:rounded-[48px] shadow-3xl border-4 md:border-8 border-white object-cover aspect-square md:aspect-auto md:h-[500px] w-full">
                     </div>
                 </div>
             </div>
@@ -1781,7 +1833,7 @@ max-width: 100%;
                 <div class="text-center mb-16"><h2 class="text-[#af9655] font-black uppercase tracking-[0.5em] text-[12px] mb-6">Technical utility</h2><h3 class="heading-font text-4xl sm:text-5xl text-slate-900 tracking-tight uppercase">Industrial application used</h3></div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     <div class="app-card-premium reveal reveal-delay-1 group">
-                        <div class="app-card-img-wrapper"><img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=800&q=80" alt="High Voltage Insulators"></div>
+                        <div class="app-card-img-wrapper"><img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?auto=format&fit=crop&w=800&q=80" alt="Electrical Insulators"></div>
                         <div class="app-overlay-content"><h4>Electrical Insulators</h4><p>Provides high dielectric strength for high-voltage power transmission components.</p></div>
                     </div>
                     <div class="app-card-premium reveal reveal-delay-2 group">
@@ -1808,7 +1860,7 @@ max-width: 100%;
                     <tbody>
                         <tr><td>Chemical Formula</td><td class="font-bold text-slate-900">$KAlSi_3O_8$</td></tr>
                         <tr><td>$K_2O$ Content</td><td>10.5% – 12.5% High Flux</td></tr>
-                        <tr><td>$Fe_2O_3$ Content</td><td>< 0.1% Ultra-Low Impurity</td></tr>
+                        <tr><td>$Fe_2O_3$ Content</td><td>&lt; 0.1% Ultra-Low Impurity</td></tr>
                         <tr><td>Mohs Hardness</td><td>6.0 – 6.5</td></tr>
                         <tr><td>Melting Point</td><td>1150°C – 1250°C</td></tr>
                         <tr><td>Refractive Index</td><td>1.52 – 1.54</td></tr>
@@ -1819,9 +1871,9 @@ max-width: 100%;
         </section>
     </div>
 
-    <!-- PRODUCT VIEW: SODA FELDSPAR -->
-    <div id="product-soda" class="page-wrapper page-hidden min-h-screen bg-white pt-24 reveal">
-        <section class="py-16 bg-slate-50 border-b border-slate-100 overflow-hidden">
+    <!-- PRODUCT VIEW: SODA FELDSPAR - FIXED: RESPONSIVE PT & BG SYNC -->
+    <div id="product-soda" class="page-wrapper page-hidden min-h-screen bg-[#f8fafc] pt-20 md:pt-24 reveal">
+        <section class="py-16 bg-[#f8fafc] border-b border-slate-100 overflow-hidden">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <button onclick="showPage('main-wrapper')" class="mb-10 inline-flex items-center gap-4 text-[#af9655] font-bold text-[11px] tracking-[0.2em] hover:text-slate-900 transition-colors"><i class="fa-solid fa-arrow-left-long"></i> Back to portal</button>
                 <div class="flex flex-col lg:flex-row gap-16 items-center">
@@ -1830,11 +1882,11 @@ max-width: 100%;
                         <div class="h-1.5 w-24 bg-[#af9655] mb-10 rounded-full"></div>
                         <h2 class="text-xl sm:text-2xl font-bold text-[#af9655] mb-6 tracking-tight">Optimized sodium-aluminum silicate for glazes and glass manufacturing.</h2>
                         <p class="text-slate-600 text-lg font-light leading-relaxed mb-10">Soda Feldspar is characterized by its high $Na_2O$ content, making it an excellent flux for low-temperature industrial processes. It is vital for achieving high-gloss glazes and improving the clarity and chemical resistance of commercial glass products.</p>
-                        <a href="javascript:void(0)" onclick="showPage('main-wrapper', 'contact')" class="btn-gold px-12 py-5 inline-block uppercase text-xs tracking-widest shadow-xl">Get TDS Report</a>
+                        <a href="javascript:void(0)" onclick="showPage('main-wrapper', 'contact')" class="btn-gold px-12 py-5 uppercase text-xs tracking-widest shadow-xl">Get TDS Report</a>
                     </div>
                     <div class="lg:w-1/2 relative group">
                         <div class="absolute -inset-4 bg-[#af9655]/10 rounded-3xl blur-2xl"></div>
-                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890744/sodium-feldspar-lumps_pbqftj.png" alt="Soda Feldspar" class="relative rounded-[48px] shadow-3xl border-8 border-white object-cover h-[500px] sm:h-[500px] w-full">
+                        <img src="https://res.cloudinary.com/dslvuduln/image/upload/v1768890744/sodium-feldspar-lumps_pbqftj.png" alt="Soda Feldspar" class="relative rounded-[32px] md:rounded-[48px] shadow-3xl border-4 md:border-8 border-white object-cover aspect-square md:aspect-auto md:h-[500px] w-full">
                     </div>
                 </div>
             </div>
